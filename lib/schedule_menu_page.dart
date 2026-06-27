@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'calendar_page.dart';
+import 'today_schedule_page.dart';
 
 class ScheduleMenuPage extends StatelessWidget {
   const ScheduleMenuPage({super.key});
@@ -16,7 +17,7 @@ class ScheduleMenuPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            // ① 今日の予定（仮）
+            // 今日の予定
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -24,7 +25,8 @@ class ScheduleMenuPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const TodaySchedulePage(),
+                      builder: (context) =>
+                          const TodaySchedulePage(),
                     ),
                   );
                 },
@@ -34,7 +36,7 @@ class ScheduleMenuPage extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // ② カレンダー
+            // カレンダー
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -42,7 +44,8 @@ class ScheduleMenuPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const CalendarPage(),
+                      builder: (context) =>
+                          const CalendarPage(),
                     ),
                   );
                 },
@@ -51,39 +54,6 @@ class ScheduleMenuPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-//仮ページ
-class TodaySchedulePage extends StatelessWidget {
-  const TodaySchedulePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('今日の予定'),
-      ),
-      body: const Center(
-        child: Text('ここに今日の予定を表示'),
-      ),
-    );
-  }
-}
-
-class TestTimetablePage extends StatelessWidget {
-  const TestTimetablePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('テスト時間割'),
-      ),
-      body: const Center(
-        child: Text('ここにテスト時間割を入力・表示'),
       ),
     );
   }

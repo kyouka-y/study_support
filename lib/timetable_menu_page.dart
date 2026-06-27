@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'class_timetable_page.dart';
+import 'test_timetable_page.dart';
 
 class TimetableMenuPage extends StatelessWidget {
   const TimetableMenuPage({super.key});
@@ -24,7 +25,8 @@ class TimetableMenuPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ClassTimetablePage(),
+                      builder: (context) =>
+                          const ClassTimetablePage(),
                     ),
                   );
                 },
@@ -42,7 +44,8 @@ class TimetableMenuPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const TestTimetablePage(),
+                      builder: (context) =>
+                          const TestTimetablePage(),
                     ),
                   );
                 },
@@ -55,21 +58,3 @@ class TimetableMenuPage extends StatelessWidget {
     );
   }
 }
-
-//仮ページ
-class TestTimetablePage extends StatelessWidget {
-  const TestTimetablePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('テスト時間割'),
-      ),
-      body: const Center(
-        child: Text('ここにテスト時間割を入力・表示'),
-      ),
-    );
-  }
-}
-
