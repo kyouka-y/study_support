@@ -17,7 +17,7 @@ class ScheduleMenuPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            // 今日の予定
+            // やることリスト
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -30,7 +30,7 @@ class ScheduleMenuPage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('今日の予定'),
+                child: const Text('やることリスト'),
               ),
             ),
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'day_schedule_page.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -23,11 +24,21 @@ class _CalendarPageState extends State<CalendarPage> {
         lastDay: DateTime.utc(2030, 12, 31),
         focusedDay: _focusedDay,
         selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+
         onDaySelected: (selectedDay, focusedDay) {
           setState(() {
             _selectedDay = selectedDay;
             _focusedDay = focusedDay;
           });
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DaySchedulePage(
+                selectedDay: selectedDay,
+              ),
+            ),
+          );
         },
       ),
     );
