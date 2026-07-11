@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/homework_service.dart';
+import 'student_schedule_page.dart';
 
 class StudentDetailPage extends StatefulWidget {
   final String studentUid;
@@ -88,6 +89,8 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
         dueDate: _dueDate!,
       );
 
+      if (!mounted) return;
+
       setState(() {
         _message = '宿題を登録しました';
         _dueDate = null;
@@ -96,6 +99,8 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
       _titleController.clear();
       _descriptionController.clear();
     } catch (e) {
+      if (!mounted) return;
+
       setState(() {
         _message = 'エラー: $e';
       });
@@ -115,6 +120,16 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
     super.dispose();
   }
 
+  String _formatDate(Timestamp? timestamp) {
+    if (timestamp == null) {
+      return '期限なし';
+    }
+
+    final date = timestamp.toDate();
+
+    return '${date.year}/${date.month}/${date.day}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,7 +147,28 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+
             Text(widget.studentLoginId),
+
+            const SizedBox(height: 24),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => StudentSchedulePage(
+                        studentUid: widget.studentUid,
+                        studentName: widget.studentName,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('1日の予定を登録'),
+              ),
+            ),
 
             const SizedBox(height: 32),
 
@@ -171,7 +207,10 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
               child: Text(
                 _dueDate == null
                     ? '期限を選択'
-                    : '期限：${_dueDate!.year}/${_dueDate!.month}/${_dueDate!.day}',
+                    : '期限：'
+                        '${_dueDate!.year}/'
+                        '${_dueDate!.month}/'
+                        '${_dueDate!.day}',
               ),
             ),
 
@@ -236,14 +275,16 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
                     final data =
                         document.data() as Map<String, dynamic>;
 
-                    final title = data['title'] ?? '';
-                    final description =
+                    final String title =
+                        data['title'] ?? '';
+
+                    final String description =
                         data['description'] ?? '';
 
-                    final completed =
+                    final bool completed =
                         data['completed'] ?? false;
 
-                    final dueDate =
+                    final Timestamp? dueDate =
                         data['dueDate'] as Timestamp?;
 
                     return Card(
@@ -271,15 +312,5 @@ class _StudentDetailPageState extends State<StudentDetailPage> {
         ),
       ),
     );
-  }
-
-  String _formatDate(Timestamp? timestamp) {
-    if (timestamp == null) {
-      return '期限なし';
-    }
-
-    final date = timestamp.toDate();
-
-    return '${date.year}/${date.month}/${date.day}';
   }
 }

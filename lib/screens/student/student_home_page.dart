@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../services/auth_service.dart';
 import '../auth/login_page.dart';
 import 'student_homework_page.dart';
+import 'daily_schedule_page.dart';
+import 'student_schedule_input_page.dart';
 
 class StudentHomePage extends StatelessWidget {
   final String userName;
@@ -56,7 +58,15 @@ class StudentHomePage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const DailySchedulePage(),
+                    ),
+                  );
+                },
                 child: const Text('予定を確認する'),
               ),
             ),
@@ -66,7 +76,31 @@ class StudentHomePage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const StudentScheduleInputPage(),
+                    ),
+                  );
+                },
+                child: const Text('予定を入力する'),
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('学習記録は未実装です'),
+                    ),
+                  );
+                },
                 child: const Text('学習記録'),
               ),
             ),
