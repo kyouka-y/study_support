@@ -5,19 +5,16 @@ import '../models/user_model.dart';
 class UserService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<AppUser?> getUser(String loginId) async {
-    final querySnapshot = await _firestore
+  Future<AppUser?> getUserByUid(String uid) async {
+    final document = await _firestore
         .collection('users')
-        .where('loginId', isEqualTo: loginId)
-        .limit(1)
+        .doc(uid)
         .get();
 
-    if (querySnapshot.docs.isEmpty) {
+    if (!document.exists) {
       return null;
     }
 
-    return AppUser.fromMap(
-      querySnapshot.docs.first.data(),
-    );
+    return AppUser.fromMap(document.data()!);
   }
 }

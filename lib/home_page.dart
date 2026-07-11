@@ -6,6 +6,7 @@ import 'homework_menu_page.dart';
 
 import 'models/user_model.dart';
 import 'services/user_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,19 +30,31 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadUser() async {
     try {
-      final user = await _userService.getUser('T001');
+      final firebaseUser = FirebaseAuth.instance.currentUser;
+
+      if (firebaseUser == null) {
+      setState(() {
+        _errorMessage = 'ログインしていません';
+        _isLoading = false;
+      });
+      return;
+    }
+
+    final user = await _userService.getUserByUid(
+      firebaseUser.uid,
+    );
 
       setState(() {
         _user = user;
         _isLoading = false;
       });
-    } catch (e) {
-      setState(() {
-        _errorMessage = e.toString();
-        _isLoading = false;
-      });
-    }
+  } catch (e) {
+    setState(() {
+      _errorMessage = e.toString();
+      _isLoading = false;
+    });
   }
+}
 
   @override
   Widget build(BuildContext context) {
