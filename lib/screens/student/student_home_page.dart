@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../services/auth_service.dart';
+import '../auth/login_page.dart';
+import 'student_homework_page.dart';
+
 class StudentHomePage extends StatelessWidget {
   final String userName;
 
@@ -10,6 +14,8 @@ class StudentHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authService = AuthService();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('生徒ホーム'),
@@ -32,7 +38,15 @@ class StudentHomePage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const StudentHomeworkPage(),
+                    ),
+                  );
+                },
                 child: const Text('宿題を確認する'),
               ),
             ),
@@ -54,6 +68,29 @@ class StudentHomePage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {},
                 child: const Text('学習記録'),
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                onPressed: () async {
+                  await authService.signOut();
+
+                  if (!context.mounted) return;
+
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const LoginPage(),
+                    ),
+                    (route) => false,
+                  );
+                },
+                child: const Text('ログアウト'),
               ),
             ),
           ],

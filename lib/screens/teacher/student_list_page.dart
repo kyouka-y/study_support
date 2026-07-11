@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/relationship_service.dart';
+import 'student_detail_page.dart';
 
 class StudentListPage extends StatefulWidget {
   const StudentListPage({super.key});
@@ -43,11 +44,15 @@ class _StudentListPageState extends State<StudentListPage> {
         teacher.uid,
       );
 
+      if (!mounted) return;
+
       setState(() {
         _students = students;
         _isLoading = false;
       });
     } catch (e) {
+      if (!mounted) return;
+
       setState(() {
         _errorMessage = e.toString();
         _isLoading = false;
@@ -91,8 +96,9 @@ class _StudentListPageState extends State<StudentListPage> {
       itemBuilder: (context, index) {
         final student = _students[index];
 
-        final name = student['name'] ?? '';
-        final loginId = student['loginId'] ?? '';
+        final String studentUid = student['uid'] ?? '';
+        final String name = student['name'] ?? '';
+        final String loginId = student['loginId'] ?? '';
 
         return ListTile(
           leading: const CircleAvatar(
@@ -104,9 +110,14 @@ class _StudentListPageState extends State<StudentListPage> {
             Icons.chevron_right,
           ),
           onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('$name を選択しました'),
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => StudentDetailPage(
+                  studentUid: studentUid,
+                  studentName: name,
+                  studentLoginId: loginId,
+                ),
               ),
             );
           },
