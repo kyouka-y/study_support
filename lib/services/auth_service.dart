@@ -16,4 +16,8 @@ class AuthService {
       password: password,
     );
   }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
 }
