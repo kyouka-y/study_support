@@ -57,7 +57,6 @@ class DefaultFirebaseOptions {
     projectId: 'study-share-6a211',
     storageBucket: 'study-share-6a211.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAE5RSxAZV5lfeAchAc30fC0FVYy9oUGfk',
     appId: '1:107009486005:ios:9b5a83a4fd7b9332ef22fc',
@@ -66,7 +65,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'study-share-6a211.firebasestorage.app',
     iosBundleId: 'com.example.studySupport',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAE5RSxAZV5lfeAchAc30fC0FVYy9oUGfk',
     appId: '1:107009486005:ios:9b5a83a4fd7b9332ef22fc',

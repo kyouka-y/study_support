@@ -8,6 +8,7 @@ import '../../services/auth_service.dart';
 import '../auth/login_page.dart';
 import 'link_student_page.dart';
 import 'student_list_page.dart';
+import 'teacher_submission_page.dart';
 
 class TeacherHomePage extends StatelessWidget {
   final String userName;
@@ -89,6 +90,24 @@ class TeacherHomePage extends StatelessWidget {
                   );
                 },
                 child: const Text('宿題・テストを共有する'),
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const TeacherSubmissionPage(),
+                    ),
+                  );
+                },
+                child: const Text('受信ボックス'),
               ),
             ),
 
